@@ -32,10 +32,10 @@ Application web complète (frontend + backend) pour suivre le football européen
   cd backend
   npm run start
   ```
-  Par défaut, l'API proxy écoute sur `http://localhost:3001` et sert les fichiers du dossier `frontend/`.
+  Par défaut, l'API proxy écoute sur `http://localhost:3001` et sert le fichier `index.html` à la racine ainsi que les assets du dossier `public/`.
 
 - **Frontend**
-  Les fichiers statiques sont dans `frontend/` (`index.html`, `styles.css`, `app.js`). Ouvrez `http://localhost:3001` après avoir démarré le backend.
+  La page principale `index.html` est à la racine. Les fichiers statiques (CSS, JS) sont dans `public/`. Ouvrez `http://localhost:3001` après avoir démarré le backend.
 
 ## Architecture
 ```
@@ -43,10 +43,10 @@ backend/
   server.js          # Express + CORS + logs + service statique
   src/routes/        # Routes internes qui appellent l'API Football
   src/services/      # Client axios et constantes des ligues européennes
-frontend/
-  index.html         # Structure de la SPA avec sections dédiées
+public/
   styles.css         # Design moderne et responsive
   app.js             # Logique UI, appels API, drag & drop, localStorage
+index.html           # Structure de la SPA avec sections dédiées à la racine
 ```
 
 ## Notes API
@@ -64,5 +64,5 @@ frontend/
 - Le frontend affiche des états de chargement, des messages d'absence de données et gère la persistance locale du mini-jeu.
 
 ## Personnalisation
-- Le fichier `frontend/styles.css` contient la palette et les espacements pour ajuster rapidement le thème.
+- Le fichier `public/styles.css` contient la palette et les espacements pour ajuster rapidement le thème.
 - Les IDs de ligues européennes sont centralisés dans `backend/src/services/footballApi.js` (Premier League 39, La Liga 140, Ligue 1 61, Serie A 135, Bundesliga 78).
