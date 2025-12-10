@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Football Live Europe</title>
+  <link rel="stylesheet" href="styles.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <header class="hero">
+    <div class="hero__overlay"></div>
+    <nav class="nav">
+      <div class="logo">Football<span>Live</span></div>
+      <ul class="nav__links">
+        <li><a href="#home">Accueil</a></li>
+        <li><a href="#standings">Classements</a></li>
+        <li><a href="#live">Matchs en direct</a></li>
+        <li><a href="#fixtures">Calendrier</a></li>
+        <li><a href="#players">Joueurs</a></li>
+        <li><a href="#builder">Créer ton équipe</a></li>
+      </ul>
+    </nav>
+    <section id="home" class="hero__content">
+      <p class="eyebrow">Football européen</p>
+      <h1>Stats, live, calendriers et joueurs en un seul endroit.</h1>
+      <p class="subtitle">Données actualisées en temps réel grâce à l'API Football, avec focus sur les championnats majeurs en France, Espagne, Allemagne, Angleterre et Italie.</p>
+      <div class="hero__cta">
+        <a href="#standings" class="btn primary">Voir les classements</a>
+        <a href="#live" class="btn ghost">Matchs en direct</a>
+      </div>
+    </section>
+  </header>
+
+  <main>
+    <section class="section" id="stats">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">Vue d'ensemble</p>
+          <h2>Chiffres clés du moment</h2>
+        </div>
+        <button id="refresh-summary" class="btn ghost">Rafraîchir</button>
+      </div>
+      <div class="grid stats" id="summary-cards"></div>
+      <div class="subsection">
+        <div class="subsection__header">
+          <h3>Prochains grands rendez-vous</h3>
+          <p>Les affiches à ne pas manquer dans les championnats européens.</p>
+        </div>
+        <div id="upcoming-list" class="list matches"></div>
+      </div>
+    </section>
+
+    <section class="section" id="standings">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">Classements</p>
+          <h2>Les meilleures équipes d'Europe</h2>
+        </div>
+        <div class="controls">
+          <label for="standings-league">Championnat</label>
+          <select id="standings-league"></select>
+        </div>
+      </div>
+      <div class="table__wrapper">
+        <table class="table" id="standings-table">
+          <thead>
+            <tr>
+              <th>Club</th>
+              <th>MJ</th>
+              <th>Pts</th>
+              <th>V</th>
+              <th>N</th>
+              <th>D</th>
+              <th>Diff</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="live">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">En direct</p>
+          <h2>Matchs en cours</h2>
+        </div>
+        <div class="controls">
+          <input type="text" id="live-filter" placeholder="Filtrer par pays (ex: France)">
+          <button id="refresh-live" class="btn ghost">Rafraîchir</button>
+        </div>
+      </div>
+      <div id="live-matches" class="list matches"></div>
+    </section>
+
+    <section class="section" id="fixtures">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">Calendrier</p>
+          <h2>Planifie tes soirées football</h2>
+        </div>
+        <div class="controls">
+          <input type="date" id="fixture-date">
+          <select id="fixture-league"></select>
+          <button id="search-fixtures" class="btn primary">Rechercher</button>
+        </div>
+      </div>
+      <div id="fixtures-list" class="list matches"></div>
+    </section>
+
+    <section class="section" id="players">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">Joueurs</p>
+          <h2>Recherche avancée</h2>
+        </div>
+        <div class="controls">
+          <input type="text" id="player-query" placeholder="Nom du joueur">
+          <button id="search-players" class="btn primary">Chercher</button>
+        </div>
+      </div>
+      <div id="players-results" class="grid players"></div>
+    </section>
+
+    <section class="section" id="builder">
+      <div class="section__header">
+        <div>
+          <p class="eyebrow">Mini-jeu</p>
+          <h2>Crée ton équipe de rêve</h2>
+        </div>
+        <div class="controls">
+          <input type="text" id="team-name" placeholder="Nom de l'équipe">
+          <button id="save-team" class="btn primary">Sauvegarder</button>
+          <button id="load-team" class="btn ghost">Charger</button>
+        </div>
+      </div>
+      <div class="builder">
+        <div class="pitch" id="pitch">
+          <div class="line gk"><div class="slot" data-position="GK">GK</div></div>
+          <div class="line def">
+            <div class="slot" data-position="DEF">DEF</div>
+            <div class="slot" data-position="DEF">DEF</div>
+            <div class="slot" data-position="DEF">DEF</div>
+            <div class="slot" data-position="DEF">DEF</div>
+          </div>
+          <div class="line mid">
+            <div class="slot" data-position="MID">MID</div>
+            <div class="slot" data-position="MID">MID</div>
+            <div class="slot" data-position="MID">MID</div>
+          </div>
+          <div class="line att">
+            <div class="slot" data-position="ATT">ATT</div>
+            <div class="slot" data-position="ATT">ATT</div>
+            <div class="slot" data-position="ATT">ATT</div>
+          </div>
+        </div>
+        <div class="pool">
+          <div class="pool__header">
+            <h3>Joueurs disponibles</h3>
+            <p>Glisse-dépose pour créer ton onze.</p>
+          </div>
+          <div id="player-pool" class="pool__list"></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <p>Propulsé par l'API Football. Données européennes mises à l'honneur.</p>
+  </footer>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
